@@ -17,7 +17,7 @@ type City struct {
 }
 
 func GetJasonFromInternet() {
-	resp, err := http.Get("http://api.theysaidso.com/qod.json")
+	resp, err := http.Get(JsonURL)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -39,7 +39,7 @@ func GetDataFromMySQL() {
 		log.Printf("Error %s when opening DB\n", err)
 		return
 	}
-	res, err := db.Query("select * from cities order by name")
+	res, err := db.Query(SelectCities)
 
 	if err != nil {
 		log.Fatal(err)
@@ -64,13 +64,12 @@ func DeleteDataFromMySQL() {
 		log.Fatal(err)
 		return
 	}
-	res, err := db.Exec("DELETE FROM cities WHERE id IN (2, 4, 6)")
+	res, err := db.Exec(DeleteCities)
 	if err != nil {
 		log.Panic(err)
 		return
 	}
 
-	//var affectedRow int64
 	affectedRow, err := res.RowsAffected()
 	if err != nil {
 		log.Fatal(err)
