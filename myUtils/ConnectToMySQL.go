@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -45,6 +46,9 @@ func GetDataFromMySQL() {
 		log.Fatal(err)
 	}
 	defer res.Close()
+	db.SetMaxOpenConns(5)                  // setting max Open Connections
+	db.SetMaxIdleConns(3)                  // setting max Idle Connections
+	db.SetConnMaxLifetime(time.Minute * 1) // Setting max life
 
 	for res.Next() {
 		var cities City
