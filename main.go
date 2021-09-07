@@ -7,11 +7,6 @@ import (
 )
 
 func main() {
-	//fmt.Println("Hello I love to program")
-	//fmt.Println("This is a good Idea")
-	//misc.Arraytest()
-	//fmt.Println("For loop Second type")
-	//misc.Arraytest01()
 	//fmt.Println("--------------Getting data from Internat-------------------")
 	//myUtils.GetJasonFromInternet()
 	//fmt.Println("---------------Got the data from Internet------------------")
