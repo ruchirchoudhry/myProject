@@ -16,18 +16,6 @@ type City struct {
 	Population int
 }
 
-const (
-	username = "app"
-	password = "lizapepsi"
-	hostname = "127.0.0.1:3306"
-	dbname   = "test"
-)
-
-func dns(dbname string) string {
-
-	return fmt.Sprintf("%s:%s@tcp(%s)/%s", username, password, hostname, dbname)
-}
-
 func GetJasonFromInternet() {
 	resp, err := http.Get("http://api.theysaidso.com/qod.json")
 	if err != nil {
