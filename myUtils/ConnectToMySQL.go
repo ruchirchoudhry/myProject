@@ -66,7 +66,7 @@ func InsertIntoCityWithTx() {
 	fmt.Println("Insert statemetn used", stmt)
 	CheckErrors(err)
 	res, err := stmt.Exec(Id, CityName, Population)
-	println(res)
+	CheckErrorsWithRowAffected(res, err)
 	CheckErrorsTx(err, *tx)
 	tx.Commit()
 	id, err := res.LastInsertId()
