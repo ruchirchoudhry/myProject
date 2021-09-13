@@ -49,6 +49,7 @@ func GetDataFromMySQL() {
 	db.SetMaxOpenConns(5)                  // setting max Open Connections
 	db.SetMaxIdleConns(3)                  // setting max Idle Connections
 	db.SetConnMaxLifetime(time.Minute * 1) // Setting max life
+	db.Stats()                             // Gets the stats of the DB
 
 	for res.Next() {
 		var cities City
