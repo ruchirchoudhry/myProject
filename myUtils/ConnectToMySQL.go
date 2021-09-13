@@ -67,7 +67,6 @@ func InsertIntoCityWithTx() {
 	connectionPoolsettings()
 	db, err := sql.Open("mysql", dns(dbname))
 	CheckErrors(err)
-	defer db.Close()
 	tx, _ := db.Begin()
 	stmt, err := tx.Prepare(InsertStatement)
 	fmt.Println("Insert statemetn used", stmt)
@@ -79,7 +78,7 @@ func InsertIntoCityWithTx() {
 	id, err := res.LastInsertId()
 	CheckErrors(err)
 	fmt.Println("Inserted ID=", id)
-
+	defer db.Close()
 }
 func connectionPoolsettings() {
 	db, err := sql.Open("mysql", dns(dbname))
