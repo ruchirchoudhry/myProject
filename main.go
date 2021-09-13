@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+	myUtils.InsertIntoCityWithTx()
 	//fmt.Println("--------------Getting data from Internat-------------------")
 	//myUtils.GetJasonFromInternet()
 	//fmt.Println("---------------Got the data from Internet------------------")
@@ -16,7 +17,8 @@ func main() {
 	myUtils.GetDataFromMySQL()
 	afterInv = changeToMillisecond()
 	fmt.Println("--------------------------------------------------------------", (afterInv - beforeInv))
-	myUtils.DeleteDataFromMySQL()
+	//myUtils.DeleteDataFromMySQL()
+
 }
 func changeToMillisecond() int64 {
 	return time.Now().UnixNano() / int64(time.Millisecond)

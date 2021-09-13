@@ -35,16 +35,10 @@ func GetJasonFromInternet() {
 func GetDataFromMySQL() {
 
 	db, err := sql.Open("mysql", dns(dbname))
-
-	if err != nil {
-		log.Printf("Error %s when opening DB\n", err)
-		return
-	}
+	errstring := "Error %s when opening DB\n"
+	CheckErrorsWithPrintStr(err, errstring)
 	res, err := db.Query(SelectCities)
-
-	if err != nil {
-		log.Fatal(err)
-	}
+	CheckErrors(err)
 	defer res.Close()
 	db.SetMaxOpenConns(5)                  // setting max Open Connections
 	db.SetMaxIdleConns(3)                  // setting max Idle Connections
@@ -54,33 +48,71 @@ func GetDataFromMySQL() {
 	for res.Next() {
 		var cities City
 		err := res.Scan(&cities.Id, &cities.Name, &cities.Population)
-		if err != nil {
-			log.Fatal(err)
-			return
-		}
+		CheckErrors(err)
 		fmt.Printf("%v\n", cities)
 	}
 	defer db.Close()
 }
 func DeleteDataFromMySQL() {
 	db, err := sql.Open("mysql", dns(dbname))
-
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
+	CheckErrorsWithReturn(err)
 	res, err := db.Exec(DeleteCities)
-	if err != nil {
-		log.Panic(err)
-		return
-	}
-
+	CheckErrors(err)
 	affectedRow, err := res.RowsAffected()
+	CheckErrorsWithReturn(err)
+	defer db.Close()
+	fmt.Printf("The statement affected %d rows\n", affectedRow)
+}
+func InsertIntoCityWithTx() {
+	connectionPoolsettings()
+	db, err := sql.Open("mysql", dns(dbname))
+	CheckErrors(err)
+	defer db.Close()
+	tx, _ := db.Begin()
+	stmt, err := tx.Prepare(InsertStatement)
+	fmt.Println("Insert statemetn used", stmt)
+	CheckErrors(err)
+	res, err := stmt.Exec(Id, CityName, Population)
+	println(res)
+	CheckErrorsTx(err, *tx)
+	tx.Commit()
+	id, err := res.LastInsertId()
+	CheckErrors(err)
+	fmt.Println("Inserted ID=", id)
+
+}
+func connectionPoolsettings() {
+	db, err := sql.Open("mysql", dns(dbname))
+	CheckErrorsWithReturn(err)
+	defer db.Close()
+	db.SetMaxOpenConns(5)                  // setting max Open Connections
+	db.SetMaxIdleConns(3)                  // setting max Idle Connections
+	db.SetConnMaxLifetime(time.Minute * 1) // Setting max life
+	db.Stats()                             // Gets the stats of the DB
+}
+func CheckErrors(err error) {
+	if err != nil {
+		log.Fatal(err)
+		panic(err.Error())
+
+	}
+}
+func CheckErrorsTx(err error, tx sql.Tx) {
+	if err != nil {
+		tx.Rollback()
+		log.Fatal(err)
+	}
+}
+func CheckErrorsWithReturn(err error) {
 	if err != nil {
 		log.Fatal(err)
 		return
-	}
-	defer db.Close()
 
-	fmt.Printf("The statement affected %d rows\n", affectedRow)
+	}
+}
+func CheckErrorsWithPrintStr(err error, errsting string) {
+	if err != nil {
+		log.Printf(errsting, err)
+		return
+	}
 }
