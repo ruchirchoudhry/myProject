@@ -68,11 +68,12 @@ func InsertIntoCityWithTx() {
 	res, err := stmt.Exec(Id, CityName, Population)
 	CheckErrorsWithRowAffected(res, err)
 	CheckErrorsTx(err, *tx)
+	defer db.Close()
 	tx.Commit()
 	id, err := res.LastInsertId()
 	CheckErrors(err)
 	fmt.Println("Inserted ID=", id)
-	defer db.Close()
+
 }
 func UpdateCityDataWithTx() {
 	connectionPoolsettings()
@@ -84,8 +85,8 @@ func UpdateCityDataWithTx() {
 	res, err01 := stmt.Exec("LA", "13")
 	CheckErrorsWithRowAffected(res, err01)
 	CheckErrorsTx(err, *tx)
-	tx.Commit()
 	defer db.Close()
+	tx.Commit()
 
 }
 func connectionPoolsettings() {
