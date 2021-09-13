@@ -38,12 +38,7 @@ func GetDataFromMySQL() {
 	CheckErrorsWithPrintStr(err, errstring)
 	res, err := db.Query(SelectCities)
 	CheckErrors(err)
-	defer res.Close()
-	db.SetMaxOpenConns(5)                  // setting max Open Connections
-	db.SetMaxIdleConns(3)                  // setting max Idle Connections
-	db.SetConnMaxLifetime(time.Minute * 1) // Setting max life
-	db.Stats()                             // Gets the stats of the DB
-
+	connectionPoolsettings()
 	for res.Next() {
 		var cities City
 		err := res.Scan(&cities.Id, &cities.Name, &cities.Population)
