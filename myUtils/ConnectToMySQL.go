@@ -74,6 +74,20 @@ func InsertIntoCityWithTx() {
 	fmt.Println("Inserted ID=", id)
 	defer db.Close()
 }
+func UpdateCityDataWithTx() {
+	connectionPoolsettings()
+	db, err := sql.Open("mysql", dns(dbname))
+	CheckErrors(err)
+	tx, _ := db.Begin()
+	stmt, err := tx.Prepare(UpdateStatement)
+	CheckErrors(err)
+	res, err01 := stmt.Exec("LA", "13")
+	CheckErrorsWithRowAffected(res, err01)
+	CheckErrorsTx(err, *tx)
+	tx.Commit()
+	defer db.Close()
+
+}
 func connectionPoolsettings() {
 	db, err := sql.Open("mysql", dns(dbname))
 	CheckErrorsWithReturn(err)

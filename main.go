@@ -8,6 +8,7 @@ import (
 
 func main() {
 	myUtils.InsertIntoCityWithTx()
+	myUtils.UpdateCityDataWithTx()
 	//fmt.Println("--------------Getting data from Internat-------------------")
 	//myUtils.GetJasonFromInternet()
 	//fmt.Println("---------------Got the data from Internet------------------")
