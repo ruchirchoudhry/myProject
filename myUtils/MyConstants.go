@@ -15,9 +15,9 @@ const (
 	SelectCities    = "select id, name, population from cities order by name"
 	DeleteCities    = "DELETE FROM cities WHERE id IN (2, 4, 6)"
 	InsertStatement = "INSERT INTO cities(id,name, population) VALUES(?,?,?)"
-	CityName        = "Dallas"
-	Population      = "230111"
-	Id              = "19"
+	CityName        = "Davangere"
+	Population      = "923000"
+	Id              = "20"
 	JsonURL         = "http://api.theysaidso.com/qod.json"
 )
 

@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"time"
 
@@ -88,30 +87,4 @@ func connectionPoolsettings() {
 	db.SetMaxIdleConns(3)                  // setting max Idle Connections
 	db.SetConnMaxLifetime(time.Minute * 1) // Setting max life
 	db.Stats()                             // Gets the stats of the DB
-}
-func CheckErrors(err error) {
-	if err != nil {
-		log.Fatal(err)
-		panic(err.Error())
-
-	}
-}
-func CheckErrorsTx(err error, tx sql.Tx) {
-	if err != nil {
-		tx.Rollback()
-		log.Fatal(err)
-	}
-}
-func CheckErrorsWithReturn(err error) {
-	if err != nil {
-		log.Fatal(err)
-		return
-
-	}
-}
-func CheckErrorsWithPrintStr(err error, errsting string) {
-	if err != nil {
-		log.Printf(errsting, err)
-		return
-	}
 }
