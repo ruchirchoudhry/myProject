@@ -16,6 +16,7 @@ func main() {
 	beforeInv = changeToMillisecond()
 	fmt.Println("--------------Getting data from Cities Table-------------------")
 	myUtils.GetDataFromMySQL()
+	myUtils.GetDataFromMySQLAndConvToJson()
 	afterInv = changeToMillisecond()
 	fmt.Println("--------------------------------------------------------------", (afterInv - beforeInv))
 	//myUtils.DeleteDataFromMySQL()

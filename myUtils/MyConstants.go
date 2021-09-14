@@ -12,14 +12,15 @@ const (
 )
 
 const (
-	SelectCities    = "select id, name, population from cities order by name"
-	DeleteCities    = "DELETE FROM cities WHERE id IN (2, 4, 6)"
-	InsertStatement = "INSERT INTO cities(id,name, population) VALUES(?,?,?)"
-	UpdateStatement = "update cities set name=? where id=?"
-	CityName        = "Santa Clara"
-	Population      = "23000"
-	Id              = "25"
-	JsonURL         = "http://api.theysaidso.com/qod.json"
+	SelectCities        = "select id, name, population from cities order by name"
+	SelectCitiesForJson = "select id, name from cities order by name"
+	DeleteCities        = "DELETE FROM cities WHERE id IN (2, 4, 6)"
+	InsertStatement     = "INSERT INTO cities(id,name, population) VALUES(?,?,?)"
+	UpdateStatement     = "update cities set name=? where id=?"
+	CityName            = "Santa Cruse"
+	Population          = "20003"
+	Id                  = "29"
+	JsonURL             = "http://api.theysaidso.com/qod.json"
 )
 
 func dns(dbname string) string {

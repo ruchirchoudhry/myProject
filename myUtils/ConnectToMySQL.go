@@ -47,6 +47,23 @@ func GetDataFromMySQL() {
 	}
 	defer db.Close()
 }
+func GetDataFromMySQLAndConvToJson() {
+
+	db, err := sql.Open("mysql", dns(dbname))
+	errstring := "Error %s when opening DB\n"
+	CheckErrorsWithPrintStr(err, errstring)
+	res, err := db.Query(SelectCitiesForJson)
+	CheckErrors(err)
+	connectionPoolsettings()
+	defer db.Close()
+	for res.Next() {
+		var row MyCitiesModel
+		err := res.Scan(&row.ID, &row.Name)
+		CheckErrors(err)
+		fmt.Println(row.Name.Key)
+	}
+
+}
 func DeleteDataFromMySQL() {
 	db, err := sql.Open("mysql", dns(dbname))
 	CheckErrorsWithReturn(err)
