@@ -10,16 +10,15 @@ const (
 	hostname = "127.0.0.1:3306"
 	dbname   = "test"
 )
-
 const (
 	SelectCities        = "select id, name, population from cities order by name"
 	SelectCitiesForJson = "select id, name from cities order by name"
 	DeleteCities        = "DELETE FROM cities WHERE id IN (2, 4, 6)"
 	InsertStatement     = "INSERT INTO cities(id,name, population) VALUES(?,?,?)"
 	UpdateStatement     = "update cities set name=? where id=?"
-	CityName            = "Santa Cruse"
+	CityName            = "VikramShila Bihar"
 	Population          = "20003"
-	Id                  = "29"
+	Id                  = "57"
 	JsonURL             = "http://api.theysaidso.com/qod.json"
 )
 
