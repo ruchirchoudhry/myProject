@@ -4,6 +4,12 @@ import (
 	"encoding/json"
 )
 
+type City struct {
+	Id         int
+	Name       string
+	Population int
+}
+
 type CityKv struct {
 	Key   string `json:"key"`
 	Value string `json:"value"`

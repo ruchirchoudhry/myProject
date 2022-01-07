@@ -11,12 +11,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-type City struct {
-	Id         int
-	Name       string
-	Population int
-}
-
 func GetJasonFromInternet() {
 	resp, err := http.Get(JsonURL)
 	if err != nil {
@@ -104,14 +98,13 @@ func UpdateCityDataWithTx() {
 	res, err01 := stmt.Exec("LA", "13")
 	CheckErrorsWithRowAffected(res, err01)
 	CheckErrorsTx(err, *tx)
-	defer db.Close()
 	tx.Commit()
+	defer db.Close()
 
 }
 func connectionPoolsettings() {
 	db, err := sql.Open("mysql", dns(dbname))
 	CheckErrorsWithReturn(err)
-
 	db.SetMaxOpenConns(5)                  // setting max Open Connections
 	db.SetMaxIdleConns(3)                  // setting max Idle Connections
 	db.SetConnMaxLifetime(time.Minute * 1) // Setting max life
