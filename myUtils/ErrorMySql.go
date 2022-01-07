@@ -18,12 +18,12 @@ func CheckErrors(err error) {
 func CheckErrorsTx(err error, tx sql.Tx) {
 	if err != nil {
 		tx.Rollback()
-		log.Fatal(err)
+		log.Panic(err)
 	}
 }
 func CheckErrorsWithReturn(err error) {
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 		return
 
 	}
