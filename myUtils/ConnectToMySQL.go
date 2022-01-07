@@ -81,10 +81,10 @@ func InsertIntoCityWithTx() {
 	res, err := stmt.Exec(Id, CityName, Population)
 	CheckErrorsWithRowAffected(res, err)
 	CheckErrorsTx(err, *tx)
-	defer db.Close()
 	tx.Commit()
 	id, err := res.LastInsertId()
 	CheckErrors(err)
+	defer db.Close()
 	fmt.Println("Inserted ID=", id)
 
 }
@@ -109,5 +109,5 @@ func connectionPoolsettings() {
 	db.SetMaxIdleConns(3)                  // setting max Idle Connections
 	db.SetConnMaxLifetime(time.Minute * 1) // Setting max life
 	db.Stats()                             // Gets the stats of the DB
-	defer db.Close()
+	defer db.Close()                       // connection cleanup
 }
