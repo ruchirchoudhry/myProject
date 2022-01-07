@@ -56,8 +56,8 @@ func GetDataFromMySQLAndConvToJson() {
 		rows.Scan(&city.ID, &city.Name, &city.Population)
 		cities = append(cities, city)
 	}
-	ub, _ := json.Marshal(&cities)
-	fmt.Printf(string(ub))
+	ub, _ := json.MarshalIndent(&cities, "", "  ")
+	fmt.Println(string(ub))
 	defer db.Close()
 }
 func DeleteDataFromMySQL() {
