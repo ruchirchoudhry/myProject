@@ -10,11 +10,12 @@ type CityKv struct {
 }
 
 type MyCitiesModel struct {
-	ID   uint64
-	Name CityKvField `json:"my_city_name"`
+	ID         int64  `json:"id"`
+	Name       string `json:"my_city_name"`
+	Population string `json:"city_population"`
 }
 
-func (city *CityKvField) Scan(src interface{}) error {
+func (city *CityKv) Scan(src interface{}) error {
 	val := src.([]uint8)
 	return json.Unmarshal(val, &city)
 }

@@ -12,13 +12,13 @@ const (
 )
 const (
 	SelectCities        = "select id, name, population from cities order by name"
-	SelectCitiesForJson = "select id, name from cities order by name"
+	SelectCitiesForJson = "select id, name, population from cities order by name limit 2"
 	DeleteCities        = "DELETE FROM cities WHERE id IN (2, 4, 6)"
 	InsertStatement     = "INSERT INTO cities(id,name, population) VALUES(?,?,?)"
 	UpdateStatement     = "update cities set name=? where id=?"
-	CityName            = "VikramShila Bihar"
-	Population          = "20003"
-	Id                  = "57"
+	CityName            = "Sivan  Bihar"
+	Population          = "103"
+	Id                  = "66"
 	JsonURL             = "http://api.theysaidso.com/qod.json"
 )
 

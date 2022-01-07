@@ -2,6 +2,7 @@ package myProject
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -52,17 +53,18 @@ func GetDataFromMySQLAndConvToJson() {
 	db, err := sql.Open("mysql", dns(dbname))
 	errstring := "Error %s when opening DB\n"
 	CheckErrorsWithPrintStr(err, errstring)
-	res, err := db.Query(SelectCitiesForJson)
+	rows, err := db.Query(SelectCitiesForJson)
 	CheckErrors(err)
 	connectionPoolsettings()
-	defer db.Close()
-	for res.Next() {
-		var row MyCitiesModel
-		err := res.Scan(&row.ID, &row.Name)
-		CheckErrors(err)
-		fmt.Println(row.Name.Key)
+	cities := []MyCitiesModel{}
+	for rows.Next() {
+		city := MyCitiesModel{}
+		rows.Scan(&city.ID, &city.Name, &city.Population)
+		cities = append(cities, city)
 	}
-
+	ub, _ := json.Marshal(&cities)
+	fmt.Printf(string(ub))
+	defer db.Close()
 }
 func DeleteDataFromMySQL() {
 	db, err := sql.Open("mysql", dns(dbname))
@@ -109,9 +111,10 @@ func UpdateCityDataWithTx() {
 func connectionPoolsettings() {
 	db, err := sql.Open("mysql", dns(dbname))
 	CheckErrorsWithReturn(err)
-	defer db.Close()
+
 	db.SetMaxOpenConns(5)                  // setting max Open Connections
 	db.SetMaxIdleConns(3)                  // setting max Idle Connections
 	db.SetConnMaxLifetime(time.Minute * 1) // Setting max life
 	db.Stats()                             // Gets the stats of the DB
+	defer db.Close()
 }
