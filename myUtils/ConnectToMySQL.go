@@ -90,24 +90,28 @@ func InsertIntoCityWithTx() {
 }
 func UpdateCityDataWithTx() {
 	connectionPoolsettings()
-	db, err := sql.Open("mysql", dns(dbname))
-	CheckErrors(err)
-	tx, _ := db.Begin()
-	stmt, err := tx.Prepare(UpdateStatement)
-	CheckErrors(err)
-	res, err01 := stmt.Exec("LA", "13")
-	CheckErrorsWithRowAffected(res, err01)
-	CheckErrorsTx(err, *tx)
-	tx.Commit()
-	defer db.Close()
+	db, err := sql.Open("mysql", dns(dbname)) // Opening  connections
+	CheckErrors(err)                          // Checking for connection errors
+	tx, _ := db.Begin()                       // Bigning the transaction
+	stmt, err := tx.Prepare(UpdateStatement)  // passing the updatestatement or error in case its caught
+	CheckErrors(err)                          // Check for errros
+	res, err01 := stmt.Exec("LA", "13")       // collecting te respose or error in the callback
+	CheckErrorsWithRowAffected(res, err01)    // returns and print Rows effected in the system
+	CheckErrorsTx(err, *tx)                   // Checking errors if any
+	tx.Commit()                               // Commiting Transaction (Tx)
+	defer db.Close()                          // Defered connection cleanup
 
 }
+
+/**
+ * This function is used for set connections to e DB/
+**/
 func connectionPoolsettings() {
 	db, err := sql.Open("mysql", dns(dbname))
-	CheckErrorsWithReturn(err)
+	CheckErrorsWithReturn(err)             // Checking errors if any
 	db.SetMaxOpenConns(5)                  // setting max Open Connections
 	db.SetMaxIdleConns(3)                  // setting max Idle Connections
 	db.SetConnMaxLifetime(time.Minute * 1) // Setting max life
 	db.Stats()                             // Gets the stats of the DB
-	defer db.Close()                       // connection cleanup
+	defer db.Close()                       // Defered connection cleanup
 }
