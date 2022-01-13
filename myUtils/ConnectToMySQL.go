@@ -90,16 +90,16 @@ func InsertIntoCityWithTx() {
 }
 func UpdateCityDataWithTx() {
 	connectionPoolsettings()
-	db, err := sql.Open("mysql", dns(dbname)) // Opening  connections
-	CheckErrors(err)                          // Checking for connection errors
-	tx, _ := db.Begin()                       // Bigning the transaction
-	stmt, err := tx.Prepare(UpdateStatement)  // passing the updatestatement or error in case its caught
-	CheckErrors(err)                          // Check for errros
-	res, err01 := stmt.Exec("LA", "13")       // collecting te respose or error in the callback
-	CheckErrorsWithRowAffected(res, err01)    // returns and print Rows effected in the system
-	CheckErrorsTx(err, *tx)                   // Checking errors if any
-	tx.Commit()                               // Commiting Transaction (Tx)
-	defer db.Close()                          // Defered connection cleanup
+	db, err := sql.Open(DB_MYSQL, dns(dbname)) // Opening  connections
+	CheckErrors(err)                           // Checking for connection errors
+	tx, _ := db.Begin()                        // Bigning the transaction
+	stmt, err := tx.Prepare(UpdateStatement)   // passing the updatestatement or error in case its caught
+	CheckErrors(err)                           // Check for errros
+	res, err01 := stmt.Exec("LA", "13")        // collecting te respose or error in the callback
+	CheckErrorsWithRowAffected(res, err01)     // returns and print Rows effected in the system
+	CheckErrorsTx(err, *tx)                    // Checking errors if any
+	tx.Commit()                                // Commiting Transaction (Tx)
+	defer db.Close()                           // Defered connection cleanup
 
 }
 

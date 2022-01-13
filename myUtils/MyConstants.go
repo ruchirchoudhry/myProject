@@ -16,10 +16,11 @@ const (
 	DeleteCities        = "DELETE FROM cities WHERE id IN (2, 4, 6)"
 	InsertStatement     = "INSERT INTO cities(id,name, population) VALUES(?,?,?)"
 	UpdateStatement     = "update cities set name=? where id=?"
-	CityName            = "Burbank CA"
-	Population          = "70000"
-	Id                  = "75"
+	CityName            = "Universal CA"
+	Population          = "10000"
+	Id                  = "76"
 	JsonURL             = "http://api.theysaidso.com/qod.json"
+	DB_MYSQL            = "mysql"
 )
 
 func dns(dbname string) string {
