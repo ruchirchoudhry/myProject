@@ -80,7 +80,7 @@ func InsertIntoCityWithTx() {
 	CheckErrors(err)
 	res, err := stmt.Exec(Id, CityName, Population)
 	CheckErrorsWithRowAffected(res, err)
-	CheckErrorsTx(err, *tx)
+	//CheckErrorsTx(err, *tx)
 	tx.Commit()
 	id, err := res.LastInsertId()
 	CheckErrors(err)

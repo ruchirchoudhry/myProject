@@ -5,10 +5,11 @@ import (
 )
 
 const (
-	username = "app"
-	password = "lizapepsi"
-	hostname = "127.0.0.1:3306"
-	dbname   = "test"
+	username     = "app"
+	password     = "lizapepsi"
+	hostname     = "127.0.0.1:3306"
+	dbname       = "test"
+	hostmemcachd = "127.0.0.1:11211"
 )
 const (
 	SelectCities        = "select id, name, population from cities order by name"
@@ -16,9 +17,9 @@ const (
 	DeleteCities        = "DELETE FROM cities WHERE id IN (2, 4, 6)"
 	InsertStatement     = "INSERT INTO cities(id,name, population) VALUES(?,?,?)"
 	UpdateStatement     = "update cities set name=? where id=?"
-	CityName            = "Universal CA"
-	Population          = "10000"
-	Id                  = "76"
+	CityName            = "San Rama"
+	Population          = "22000"
+	Id                  = "07"
 	JsonURL             = "http://api.theysaidso.com/qod.json"
 	DB_MYSQL            = "mysql"
 )
