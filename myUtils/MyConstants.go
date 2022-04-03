@@ -17,9 +17,9 @@ const (
 	DeleteCities        = "DELETE FROM cities WHERE id IN (2, 4, 6)"
 	InsertStatement     = "INSERT INTO cities(id,name, population) VALUES(?,?,?)"
 	UpdateStatement     = "update cities set name=? where id=?"
-	CityName            = "San Paul"
-	Population          = "22000"
-	Id                  = "08"
+	CityName            = "Santa Monika"
+	Population          = "20002"
+	Id                  = "11"
 	JsonURL             = "http://api.theysaidso.com/qod.json"
 	DB_MYSQL            = "mysql"
 )

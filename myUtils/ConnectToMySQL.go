@@ -80,7 +80,7 @@ func InsertIntoCityWithTx() {
 	CheckErrors(err)
 	res, err := stmt.Exec(Id, CityName, Population)
 	CheckErrorsWithRowAffected(res, err)
-	//CheckErrorsTx(err, *tx)
+	CheckErrorsTx(err, *tx)
 	tx.Commit()
 	id, err := res.LastInsertId()
 	CheckErrors(err)
@@ -107,11 +107,11 @@ func UpdateCityDataWithTx() {
  * This function is used for set connections to e DB/
 **/
 func connectionPoolsettings() {
-	db, err := sql.Open("mysql", dns(dbname))
-	CheckErrorsWithReturn(err)             // Checking errors if any
-	db.SetMaxOpenConns(5)                  // setting max Open Connections
-	db.SetMaxIdleConns(3)                  // setting max Idle Connections
-	db.SetConnMaxLifetime(time.Minute * 1) // Setting max life
-	db.Stats()                             // Gets the stats of the DB
-	defer db.Close()                       // Defered connection cleanup
+	db, err := sql.Open("mysql", dns(dbname)) // opening up connections
+	CheckErrorsWithReturn(err)                // Checking errors if any
+	db.SetMaxOpenConns(5)                     // setting max Open Connections
+	db.SetMaxIdleConns(3)                     // setting max Idle Connections
+	db.SetConnMaxLifetime(time.Minute * 1)    // Setting max life
+	db.Stats()                                // Gets the stats of the DB
+	defer db.Close()                          // Defered connection cleanup
 }
