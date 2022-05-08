@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 
-	//"github.com/bradfitz/gomemcache/memcache"
 	"github.com/bradfitz/gomemcache/memcache"
 	_ "github.com/bradfitz/gomemcache/memcache"
 )
