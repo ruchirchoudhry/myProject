@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 
+	//"github.com/bradfitz/gomemcache/memcache"
 	"github.com/bradfitz/gomemcache/memcache"
+	_ "github.com/bradfitz/gomemcache/memcache"
 )
 
 // define Dog object type
@@ -50,7 +52,6 @@ func SetDataToMemcached() {
 	if err != nil {
 		fmt.Println("Error setting memcache item", err)
 	}
-
 	// run twice
 }
 
