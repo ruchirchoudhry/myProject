@@ -28,7 +28,7 @@ func GetJasonFromInternet() {
 }
 func GetDataFromMySQL() {
 
-	db, err := sql.Open("mysql", dns(dbname))
+	db, err := sql.Open(DB_MYSQL, dns(dbname))
 	errstring := "Error %s when opening DB\n"
 	CheckErrorsWithPrintStr(err, errstring)
 	res, err := db.Query(SelectCities)
@@ -44,7 +44,7 @@ func GetDataFromMySQL() {
 }
 func GetDataFromMySQLAndConvToJson() {
 
-	db, err := sql.Open("mysql", dns(dbname))
+	db, err := sql.Open(DB_MYSQL, dns(dbname))
 	errstring := "Error %s when opening DB\n"
 	CheckErrorsWithPrintStr(err, errstring)
 	rows, err := db.Query(SelectCitiesForJson)
@@ -61,7 +61,7 @@ func GetDataFromMySQLAndConvToJson() {
 	defer db.Close()
 }
 func DeleteDataFromMySQL() {
-	db, err := sql.Open("mysql", dns(dbname))
+	db, err := sql.Open(DB_MYSQL, dns(dbname))
 	CheckErrorsWithReturn(err)
 	res, err := db.Exec(DeleteCities)
 	CheckErrors(err)
@@ -72,7 +72,7 @@ func DeleteDataFromMySQL() {
 }
 func InsertIntoCityWithTx() {
 	connectionPoolsettings()
-	db, err := sql.Open("mysql", dns(dbname))
+	db, err := sql.Open(DB_MYSQL, dns(dbname))
 	CheckErrors(err)
 	tx, _ := db.Begin()
 	stmt, err := tx.Prepare(InsertStatement)
@@ -107,11 +107,11 @@ func UpdateCityDataWithTx() {
  * This function is used for set connections to e DB/
 **/
 func connectionPoolsettings() {
-	db, err := sql.Open("mysql", dns(dbname)) // opening up connections
-	CheckErrorsWithReturn(err)                // Checking errors if any
-	db.SetMaxOpenConns(5)                     // setting max Open Connections
-	db.SetMaxIdleConns(3)                     // setting max Idle Connections
-	db.SetConnMaxLifetime(time.Minute * 1)    // Setting max life
-	db.Stats()                                // Gets the stats of the DB
-	defer db.Close()                          // Defered connection cleanup
+	db, err := sql.Open(DB_MYSQL, dns(dbname)) // opening up connections
+	CheckErrorsWithReturn(err)                 // Checking errors if any
+	db.SetMaxOpenConns(5)                      // setting max Open Connections
+	db.SetMaxIdleConns(3)                      // setting max Idle Connections
+	db.SetConnMaxLifetime(time.Minute * 1)     // Setting max life
+	db.Stats()                                 // Gets the stats of the DB
+	defer db.Close()                           // Defered connection cleanup
 }
